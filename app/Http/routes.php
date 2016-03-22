@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * [The introduction of this file]
+ *
+ * @author     shixi_zhiqun, Weibo Team <shixi_zhiqun@staff.weibo.com>
+ * @copyright  copyright(2013) weibo.com all rights reserved
+ * @version    0.1
+ */
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -10,10 +16,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//books routes
+Route::get('books', ['as'=>'books.info','uses' =>'BooksController@getBooks']);
+Route::get('book/{id}', ['as'=>'book.info','uses' =>'BooksController@getBook']);
+Route::get('book/contributions/{id}', ['as'=>'contributions.info','uses' =>'BooksController@getContributions']);
 
 /*
 |--------------------------------------------------------------------------

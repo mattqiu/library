@@ -4,19 +4,18 @@
  *
  * @author     shixi_caoyi, Weibo Team <shixi_caoyi@staff.weibo.com>
  * @copyright  copyright(2013) weibo.com all rights reserved
- * @since      2016/3/21/12:25
  * @version    0.1
  */
 
 namespace App\Http\Controllers;
-
+use App;
+use App\Borrow;
 use App\Http\Controllers\Controller;
 
 class ApplicationsController extends Controller
 {
-    public function __construct()
-    {
 
-    }
+    protected $table='borrows';
+
 
 }
