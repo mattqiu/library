@@ -2,9 +2,8 @@
 /**
  * [The introduction of this file]
  *
- * @author     shixi_caoyi, Weibo Team <shixi_caoyi@staff.weibo.com>
+ * @author     shixi_zhiqun, Weibo Team <shixi_zhiqun@staff.weibo.com>
  * @copyright  copyright(2013) weibo.com all rights reserved
- * @since      2016/3/16/17:29
  * @version    0.1
  */
 
@@ -14,5 +13,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+     protected  $table='books';
+/**
+ * Query users shared books.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+ */
+public function users(){
+    return $this->belongstoMany('App\User');
+}
+/**
+ * Query the contributions that  the book has.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+public function contributions(){
+    return $this->hasMany('App\Contribution');
+}
+/**
+ * Query the borrows that the book has.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+public function borrows(){
+    return $this->hasMany('App\Borrow');
+}
 
 }

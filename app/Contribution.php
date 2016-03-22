@@ -2,9 +2,8 @@
 /**
  * [The introduction of this file]
  *
- * @author     shixi_caoyi, Weibo Team <shixi_caoyi@staff.weibo.com>
+ * @author     shixi_zhiqun, Weibo Team <shixi_zhiqun@staff.weibo.com>
  * @copyright  copyright(2013) weibo.com all rights reserved
- * @since      2016/3/16/17:30
  * @version    0.1
  */
 
@@ -14,5 +13,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contribution extends Model
 {
+/**
+ * Query the contribution user.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ */
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
+/**
+ * Query the contribution book.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ */
+    public function books()
+    {
+        return $this->belongsTo('App\Book');
+    }
 
 }

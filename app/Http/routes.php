@@ -1,5 +1,11 @@
 <?php
-
+/**
+ * [The introduction of this file]
+ *
+ * @author     shixi_zhiqun, Weibo Team <shixi_zhiqun@staff.weibo.com>
+ * @copyright  copyright(2013) weibo.com all rights reserved
+ * @version    0.1
+ */
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -11,9 +17,16 @@
 |
 */
 
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+//books routes
+Route::get('books', ['as'=>'books.info','uses' =>'BooksController@getBooks']);
+Route::get('book/{id}', ['as'=>'book.info','uses' =>'BooksController@getBook']);
+Route::get('book/contributions/{id}', ['as'=>'contributions.info','uses' =>'BooksController@getContributions']);
+
 Route::get('/test/{id}', function ($id) {
     return view('page.user.'.$id);
-    //return 'asdf';
 });
 
 

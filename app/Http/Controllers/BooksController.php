@@ -2,19 +2,20 @@
 /**
  * [The introduction of this file]
  *
- * @author     shixi_caoyi, Weibo Team <shixi_caoyi@staff.weibo.com>
+ * @author     shixi_zhiqun, Weibo Team <shixi_zhiqun@staff.weibo.com>
  * @copyright  copyright(2013) weibo.com all rights reserved
- * @since      2016/3/21/12:07
  * @version    0.1
  */
 
 namespace App\Http\Controllers;
-
+use App;
 use App\Book;
 use App\Http\Controllers\Controller;
 
 class BooksController extends Controller
 {
+    protected $table='books';
+
     /**
      * Show all the books.
      *
@@ -22,25 +23,34 @@ class BooksController extends Controller
      */
     public function getBooks() {
 
-    }
-
-    /**
-     * Show the info of a book with isbn.
-     *
-     * @param string $isbn isbn of the book
-     * @return \Response
-     */
-    public function getBook($isbn) {
+      $books=Book::all();
+      var_dump($books);
+      exit();
+      return view();
 
     }
 
     /**
-     * Show all the contributions of a book with isbn.
+     * find a book by id.
      *
-     * @param string $isbn isbn of the book
+     * @param string $id id of the book
      * @return \Response
      */
-    public function getContributions($isbn) {
+    public function getBook($id) {
 
+       $book=Book::find($id);
+       return view();
+    }
+
+    /**
+     * find all the contributions of a book by id.
+     *
+     * @param string $id id of the book
+     * @return \Response
+     */
+    public function getContributions($id) {
+
+        $contributions=Book::find($id)->contributions;
+        return view();
     }
 }
