@@ -11,9 +11,16 @@
 |
 */
 
+Route::get('/test/{id}', function ($id) {
+    return view('page.user.'.$id);
+    //return 'asdf';
+});
+
+
 Route::get('/', function () {
     return view('layouts.main');
 });
+
 
 /*
 |--------------------------------------------------------------------------
