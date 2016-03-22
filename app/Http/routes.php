@@ -16,6 +16,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -23,6 +24,16 @@
 Route::get('books', ['as'=>'books.info','uses' =>'BooksController@getBooks']);
 Route::get('book/{id}', ['as'=>'book.info','uses' =>'BooksController@getBook']);
 Route::get('book/contributions/{id}', ['as'=>'contributions.info','uses' =>'BooksController@getContributions']);
+
+Route::get('/test/{id}', function ($id) {
+    return view('page.user.'.$id);
+});
+
+
+Route::get('/', function () {
+    return view('layouts.main');
+});
+
 
 /*
 |--------------------------------------------------------------------------

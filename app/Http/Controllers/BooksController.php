@@ -24,7 +24,9 @@ class BooksController extends Controller
     public function getBooks() {
 
       $books=Book::all();
-      return view('books',['books'=>$books]);
+      var_dump($books);
+      exit();
+      return view();
 
     }
 
