@@ -10,7 +10,6 @@
 namespace App\Http\Controllers;
 use App;
 use App\Book;
-use App\Http\Controllers\Controller;
 
 class BooksController extends Controller
 {
@@ -21,15 +20,33 @@ class BooksController extends Controller
      *
      * @return \Response
      */
-    public function getBooks() {
+    public function getBooks($bookType = null) {
 
-      $books=Book::all();
-      var_dump($books);
-      exit();
-      return view();
-
+      $books = Book::all();
+      return view('page.browse');
     }
 
+    /**
+     * Show printed books.
+     *
+     * @return \Response
+     */
+    public function getPrintedBooks($bookType = null) {
+
+        $books = Book::all();
+        return view('page.browse');
+    }
+
+    /**
+     * Show ebooks.
+     *
+     * @return \Response
+     */
+    public function getEBooks($bookType = null) {
+
+        $books = Book::all();
+        return view('page.browse');
+    }
     /**
      * find a book by id.
      *

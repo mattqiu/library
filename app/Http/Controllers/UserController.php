@@ -16,16 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserController extends Controller
 {
     /**
-     * Show the user own info page.
-     *
-     * @return \Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
      * Show the user's setting page.
      *
      * @return \Response
@@ -85,10 +75,10 @@ class UserController extends Controller
     /**
      * Show the other's profile page.
      *
-     * @param string $username
+     * @param string $id
      * @return \Response
      */
-    public function getPublic($username) {
+    public function getPublic($id) {
 
     }
 }

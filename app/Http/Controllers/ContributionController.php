@@ -13,6 +13,20 @@ namespace App\Http\Controllers;
 
 class ContributionController extends Controller
 {
+    /**
+     * Show add contributins page.
+     *
+     * @return \Response
+     */
+    public function addContribution() {
+
+    }
+
+    /**
+     * Handle the new contribution.
+     *
+     * @return \Response
+     */
     public function postContribution() {
 
     }
