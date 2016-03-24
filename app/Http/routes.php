@@ -40,11 +40,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('add', ['as' => 'postAdd', 'uses' => 'ContributionController@postContribution']);
 
 //test routes
-    Route::get('/test/{id}', function ($id) {
-        return view('page.user.' . $id);
+    Route::get('/test', function () {
+        return view('layouts.app');
     });
     Route::get('/browse', function () {
         return view('page.browse.books');
     });
+
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
 
 });
