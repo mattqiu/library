@@ -19,7 +19,8 @@ class Book extends Model
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
  */
-public function users(){
+public function users()
+{
     return $this->belongstoMany('App\User');
 }
 /**
@@ -27,7 +28,8 @@ public function users(){
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function contributions(){
+public function contributions()
+{
     return $this->hasMany('App\Contribution');
 }
 /**
@@ -35,7 +37,8 @@ public function contributions(){
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function borrows(){
+public function borrows()
+{
     return $this->hasMany('App\Borrow');
 }
 

@@ -6,18 +6,10 @@
  * @copyright  copyright(2013) weibo.com all rights reserved
  * @version    0.1
  */
-/*
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| This route group applies the "web" middleware group to every route
-| it contains. The "web" middleware group is defined in your HTTP
-| kernel and includes session state, CSRF protection, and more.
-|
-*/
+
+Auth::login(User::find(1));
+
 
 Route::group(['middleware' => ['web']], function () {
 
