@@ -84,8 +84,8 @@ class UserController extends Controller
      */
     public function deleteContribution()
     {
-        $contributions = Auth::user()->contributions;
-        $contributions->delete();
+        $contribution = Auth::user()->contributions;
+        $contribution->delete();
 
         return redirect()->route->('my/contributions');
     }
