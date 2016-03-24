@@ -14,10 +14,17 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 use App\User;
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /*
      * Show the user's setting page.
      *
@@ -77,7 +84,7 @@ class UserController extends Controller
         $contribution = Auth::user()->contributions;
         $contribution->delete();
 
-        return redirect()->route->('my/contributions');
+        return redirect()->route('my/contributions');
     }
 
     /**
@@ -90,7 +97,7 @@ class UserController extends Controller
         $user = Auth::user();
         $borrows = $user->borrows;
 
-        return ('page.user.borrows',compact('borrows'));
+        return view('page.user.borrows', compact('borrows') );
     }
 
     /**

@@ -8,10 +8,10 @@
  */
 
 
-Auth::login(User::find(1));
+//Auth::login(User::find(1));
 
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web','auth']], function () {
 
     //books routes
     Route::get('/', ['as' => 'home', 'uses' => 'BooksController@getBooks']);
@@ -43,5 +43,4 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
-
 });
