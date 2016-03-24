@@ -43,7 +43,8 @@ class User extends Authenticatable
  *
  * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
  */
-public function books(){
+public function books()
+{
     return $this->belongstoMany('App\Book');
 }
 /**
@@ -51,7 +52,8 @@ public function books(){
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function contributions(){
+public function contributions()
+{
     return $this->hasMany('App\Contribution');
 }
 /**
@@ -59,7 +61,8 @@ public function contributions(){
  *
  * @return \Illuminate\Database\Eloquent\Relations\HasMany
  */
-public function borrows(){
+public function borrows()
+{
     return $this->hasMany('App\Borrow');
 }
 }
