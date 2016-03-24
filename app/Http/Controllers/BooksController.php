@@ -14,19 +14,19 @@ use App\Http\Controllers\Controller;
 
 class BooksController extends Controller
 {
-    protected $table='books';
+    protected $table = 'books';
 
     /**
      * Show all the books.
      *
      * @return \Response
      */
-    public function getBooks() {
+    public function getBooks()
+    {
 
-      $books=Book::all();
-      var_dump($books);
-      exit();
-      return view();
+        $books = Book::all();
+
+        return view();
 
     }
 
@@ -36,10 +36,12 @@ class BooksController extends Controller
      * @param string $id id of the book
      * @return \Response
      */
-    public function getBook($id) {
+    public function getBook($id)
+    {
 
-       $book=Book::find($id);
-       return view();
+        $book = Book::findOrFail($id);
+
+        return view();
     }
 
     /**
@@ -48,9 +50,11 @@ class BooksController extends Controller
      * @param string $id id of the book
      * @return \Response
      */
-    public function getContributions($id) {
+    public function getContributions($id)
+    {
 
-        $contributions=Book::find($id)->contributions;
+        $contributions=Book::findOrFail($id)->contributions;
+
         return view();
     }
 }

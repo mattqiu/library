@@ -14,7 +14,6 @@ use App\Http\Controllers\Controller;
 
 class ApplicationsController extends Controller
 {
-
     protected $table='borrows';
 
 

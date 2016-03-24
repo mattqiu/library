@@ -17,6 +17,8 @@
 |
 */
 
+Auth::login(User::find(1));
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -25,15 +27,22 @@ Route::get('books', ['as'=>'books.info','uses' =>'BooksController@getBooks']);
 Route::get('book/{id}', ['as'=>'book.info','uses' =>'BooksController@getBook']);
 Route::get('book/contributions/{id}', ['as'=>'contributions.info','uses' =>'BooksController@getContributions']);
 
-Route::get('/test/{id}', function ($id) {
-    return view('page.user.'.$id);
-});
+//my routes
+Route::get('my', ['as'=>'my.info','uses' =>'UserController@index']);
+Route::get('my/contributions', ['as'=>'contributions.info','uses' =>'UserController@getContributions']);
+//delete contributions
+Route::get('my/contributions/delete', ['as'=>'contributions.delete','uses' =>'UserController@deleteContributions']);
+Route::get('my/settings', ['as'=>'settings.info','uses' =>'UserController@getSettings']);
+//edit settings
+Route::post('my/settings', 'UserController@postSettings');
+Route::get('my/borrows', ['as'=>'borrows.info','uses' =>'UserController@getBorrows']);
+Route::get('my/public{username}', ['as'=>'public.info','uses' =>'UserController@getPublic']);
+
 
 
 Route::get('/', function () {
     return view('layouts.main');
 });
-
 
 /*
 |--------------------------------------------------------------------------

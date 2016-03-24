@@ -10,6 +10,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Response;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,7 +25,7 @@ class UserController extends Controller
      */
     public function index()
     {
-
+    // return view('page.user.settings');
     }
 
     /**
@@ -32,7 +35,7 @@ class UserController extends Controller
      */
     public function getSettings()
     {
-
+        return view('page.user.settings');
     }
 
     /**
@@ -40,9 +43,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postSettings()
+    public function postSettings(Request $request)
     {
+        //$user = Auth::user();
+        $rules = [
+            'kindle_email' => 'email',
+            'phone_number' => 'integer',
+            'nick_name' => 'required|min:5',
+        ];
 
+        $this->validate($request, $rules);
+
+        $user->fill($request->all());
+
+        $user->save();
+
+        return redirect()->route('my/settings');
     }
 
     /**
@@ -51,35 +67,40 @@ class UserController extends Controller
      * @param string $username
      * @return \Response
      */
-    public function getContributions() {
+    public function getContributions()
+    {
+        $user = Auth::user();
+        $contributions = $user->contributions;
 
+        return view('page.user.contributions',compact('contributions'));
     }
 
-    /**
-     * Post a contribution.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function postContribution() {
 
-    }
 
     /**
      * Delete a contribution.
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deleteContribution() {
+    public function deleteContribution()
+    {
+        $contributions = Auth::user()->contributions;
+        $contributions->delete();
 
+        return redirect()->route->('my/contributions');
     }
 
     /**
-     * Show the user's own contributions page.
+     * Show the user's borrows  page.
      *
      * @return \Response
      */
-    public function getBorrows() {
+    public function getBorrows()
+    {
+        $user = Auth::user();
+        $borrows = $user->borrows;
 
+        return ('page.user.borrows',compact('borrows'));
     }
 
     /**
@@ -88,7 +109,10 @@ class UserController extends Controller
      * @param string $username
      * @return \Response
      */
-    public function getPublic($username) {
+    public function getPublic($username)
+    {
+        $user = User::whereUsername($username)->first();
 
+        return view('page.user.public',compact('user'));
     }
 }
