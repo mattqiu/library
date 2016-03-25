@@ -11,8 +11,8 @@
 //Auth::login(User::find(1));
 
 
-Route::group(['middleware' => ['web']], function () {
-
+//Route::group(['middleware' => ['web','auth']], function () {
+Route::group(['middleware' => 'web'], function () {
     //books routes
     Route::get('/', ['as' => 'home', 'uses' => 'BooksController@getBooks']);
     Route::get('books', ['as' => 'books', 'uses' => 'BooksController@getPrintedBooks']);
@@ -32,8 +32,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('add', ['as' => 'postAdd', 'uses' => 'ContributionController@postContribution']);
 
 //test routes
-    Route::get('/test/{id}', function ($id) {
-        return view('page.user.' . $id);
+    Route::get('/test', function () {
+        return view('layouts.app');
     });
 
     Route::get('/browse', function () {

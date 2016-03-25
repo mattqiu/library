@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
@@ -52,6 +53,9 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'sex' => 'required',
         ]);
     }
 
@@ -64,9 +68,26 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'nick_name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'phone_number' => $data['phone_number'],
+            'address' => $data['address'],
+            'sex' => $data['sex'],
+            'kindle_email' => $data['kindle_email'],
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $data = $request->all();
+        $validator = $this->validator($data);
+        $this->validateWith($validator,$request);
+
+        $user = $this->create($data);
+        if($user->id) {
+            return $user->id;
+        }
+        return "false";
     }
 }
