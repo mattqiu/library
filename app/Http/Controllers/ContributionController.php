@@ -18,8 +18,9 @@ class ContributionController extends Controller
      *
      * @return \Response
      */
-    public function addContribution() {
-
+    public function addContribution()
+    {
+        return view('page.contribution.add');
     }
 
     /**
@@ -27,7 +28,12 @@ class ContributionController extends Controller
      *
      * @return \Response
      */
-    public function postContribution() {
 
+    public function postContribution(Request $request)
+    {
+        $this->validate($request, [
+        'title' => 'required|unique:posts|max:255',
+        ]);
+        return redirect()->route('book',[]);
     }
 }

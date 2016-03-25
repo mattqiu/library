@@ -41,11 +41,13 @@ class UserController extends Controller
             'phone_number' => 'integer',
             'nick_name' => 'required|min:5',
         ];
-
+        if ($validator->fails()) {
+            return redirect('post/getSettings')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
         $this->validate($request, $rules);
-
         $user->fill($request->all());
-
         $user->save();
 
         return redirect()->route('my/settings');
@@ -77,7 +79,7 @@ class UserController extends Controller
         $contribution = Auth::user()->contributions;
         $contribution->delete();
 
-        return redirect()->route->('my/contributions');
+        return redirect()->route('my/contributions');
     }
 
     /**
@@ -90,7 +92,7 @@ class UserController extends Controller
         $user = Auth::user();
         $borrows = $user->borrows;
 
-        return ('page.user.borrows',compact('borrows'));
+        return view('page.user.borrows',compact('borrows'));
     }
 
     /**
@@ -102,8 +104,7 @@ class UserController extends Controller
 
     public function getPublic($id)
     {
-        $user = User::whereUsername($id)->first();
-
+        $user = User::findOrFail($id);
 
         return view('page.user.public',compact('user'));
     }
