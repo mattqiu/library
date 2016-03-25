@@ -9,6 +9,8 @@
  */
 
 namespace App\Http\Controllers;
+use Illuminate\Http\Request;
+use App;
 
 use Illuminate\Http\Request;
 
@@ -30,13 +32,30 @@ class ContributionController extends Controller
      *
      * @return \Response
      */
-
     public function postContribution(Request $request)
     {
+        $book = new Book;
+        //$isbn = $request->input('isbn');
+        $isbn = 7550241511;
+        $book->has_type = 0;
+        $url = "https://api.douban.com/v2/book/isbn/$isbn";
+        $data = (array)json_decode(file_get_contents($url), true);
+        $book->id = $data['id'];
+        //$book->has_type = $request->input('has_type');
+        $book->book_name = $data['title'];
+        $book->isbn = $data['isbn13'];
+        $book->author = $data['author'];
+        $book->publisher = $data['publisher'];
+        $book->publish_date = $data['pubdate'];
+        $book->douban_rating = $data['rating'];
+        $book->introduction = $data['summary'];
+        $book->catalog = $data['catalog'];
 
-        $this->validate($request, [
-        'title' => 'required|unique:posts|max:255',
-        ]);
-        return redirect()->route('book',[]);
+        //获取书的图片
+        $images_url = $data['images']['medium'];
+        $filename = date("Ymdhis").".jpg";
+        $content = file_get_contents($images_url);
+        file_put_contents('../storage/app/public/mimage/$filename', $content);
+        $book->save();
     }
 }

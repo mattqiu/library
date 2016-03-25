@@ -25,6 +25,7 @@
                   <label for="isbn" class="col-sm-2 control-label"><span class="required">*</span>ISBN</label>
                   <div class="col-sm-8">
                     <input type="text" id="isbn" name="isbn" class="form-control"  placeholder="ISBN">
+                      <div class="helper-text"></div>
                   </div>
                 </div>
                 <div id="chose-file" class="form-group" style="display: none">
