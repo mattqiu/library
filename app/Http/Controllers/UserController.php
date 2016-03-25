@@ -57,6 +57,7 @@ class UserController extends Controller
         $user->fill($request->all());
         $user->save();
 
+
         return redirect()->route('my/settings');
     }
 

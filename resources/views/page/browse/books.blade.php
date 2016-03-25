@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', $pageTitle)
+@section('title', '共享图书')
 
 @section('content')
     <div class="container">

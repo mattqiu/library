@@ -1,6 +1,6 @@
 <div class="container">
     <div>
-        <p class="help">共有 {{ $booksCount }} 本书</p>
+        <p class="help">共有 {{ $books->count() }} 本书</p>
     </div>
     <div class="row books-container">
         @if($books->count())

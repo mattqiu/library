@@ -2,10 +2,10 @@
     <div class="container">
         <div id="navbar">
             <ul class="nav navbar-nav">
-                <li {{ $navType == 1 ? "class='active'" : "" }}><a href="/">首页</a></li>
-                <li {{ $navType == 2 ? "class='active'" : "" }}><a href="/book">实体书</a></li>
-                <li {{ $navType == 3 ? "class='active'" : "" }}><a href="/ebook">电子书</a></li>
-                <li {{ $navType == 4 ? "class='active'" : "" }}><a href="/my">我的</a></li>
+                <li {{  Request::is('/') ? "class='active'" : "" }}><a href="/">首页</a></li>
+                <li {{  Request::is('/book') ? "class='active'" : "" }}><a href="/book">实体书</a></li>
+                <li {{  Request::is('/ebook') ? "class='active'" : "" }}><a href="/ebook">电子书</a></li>
+                <li {{  Request::is('/my') ? "class='active'" : "" }}><a href="/my">我的</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="/add">共享图书</a></li>

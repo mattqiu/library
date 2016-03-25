@@ -22,7 +22,8 @@ class BooksController extends Controller
 
     public function getBooks()
     {
-        $books = Book::all();
+        $books = Book::paginate(20);
+
         return view('page.browse.books',compact('books'));
     }
 
@@ -36,12 +37,13 @@ class BooksController extends Controller
         $has_type=Book::lists('has_type');
         foreach($has_type as $value){
             if($value == "1" or $value == "3"){
-            $books[] = Book::whereIn('has_type',[$value])->get();
+                $books = Book::whereIn('has_type',[$value])->get();
+            }
         }
-    }
 
         return view('page.browse.books',compact('books'));
     }
+
 
     /**
      * Show ebooks.
@@ -51,9 +53,11 @@ class BooksController extends Controller
     public function getEBooks()
     {
         $has_type=Book::lists('has_type');
-        foreach($has_type as $value){
-            if($value == "2" ){
-            $books[] = Book::whereIn('has_type',[$value])->get();
+        foreach($has_type as $value)
+        {
+            if($value == "2" )
+            {
+                $books = Book::whereIn('has_type',[$value])->get();
         }
     }
         return view('page.browse.books',compact('books'));
