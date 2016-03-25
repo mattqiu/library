@@ -10,7 +10,6 @@
 namespace App\Http\Controllers;
 use App;
 use App\Book;
-
 class BooksController extends Controller
 {
     protected $table = 'books';
@@ -23,9 +22,8 @@ class BooksController extends Controller
 
     public function getBooks()
     {
-
         $books = Book::all();
-        return view('page.browse');
+        return view('page.browse.books',compact('books'));
     }
 
     /**
@@ -33,9 +31,16 @@ class BooksController extends Controller
      *
      * @return \Response
      */
-    public function getPrintedBooks($bookType = null) {
-        $books = Book::all();
-        return view('page.browse');
+    public function getPrintedBooks()
+    {
+        $has_type=Book::lists('has_type');
+        foreach($has_type as $value){
+            if($value == "1" or $value == "3"){
+            $books[] = Book::whereIn('has_type',[$value])->get();
+        }
+    }
+
+        return view('page.browse.books',compact('books'));
     }
 
     /**
@@ -43,10 +48,15 @@ class BooksController extends Controller
      *
      * @return \Response
      */
-    public function getEBooks($bookType = null) {
-
-        $books = Book::all();
-        return view('page.browse');
+    public function getEBooks()
+    {
+        $has_type=Book::lists('has_type');
+        foreach($has_type as $value){
+            if($value == "2" ){
+            $books[] = Book::whereIn('has_type',[$value])->get();
+        }
+    }
+        return view('page.browse.books',compact('books'));
     }
     /**
      * find a book by id.
@@ -59,7 +69,7 @@ class BooksController extends Controller
 
         $book = Book::findOrFail($id);
 
-        return view();
+        return view('page.book.info',compact('book'));
     }
 
     /**
@@ -73,6 +83,6 @@ class BooksController extends Controller
 
         $contributions=Book::findOrFail($id)->contributions;
 
-        return view();
+        return view('page.user.contributions',compact('contributions'));
     }
 }

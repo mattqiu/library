@@ -18,7 +18,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('books', ['as' => 'books', 'uses' => 'BooksController@getPrintedBooks']);
     Route::get('ebooks', ['as' => 'ebooks', 'uses' => 'BooksController@getEBooks']);
     Route::get('book/{id}', ['as' => 'book.info', 'uses' => 'BooksController@getBook']);
-//Route::get('book/contributions/{id}', ['as'=>'contributions.info', 'uses' =>'BooksController@getContributions']);
+    Route::get('book/contributions/{id}', ['as'=>'contributions.info', 'uses' =>'BooksController@getContributions']);
 
 //users routes
     Route::get('my/settings', ['as' => 'settings', 'uses' => 'UserController@getSettings']);
@@ -35,12 +35,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/test', function () {
         return view('layouts.app');
     });
+
     Route::get('/browse', function () {
         return view('page.browse.books');
     });
-
 });
 
-Route::group(['middleware' => 'web'], function () {
-    Route::auth();
-});
