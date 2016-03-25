@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 
+use Illuminate\Http\Request;
 
 class ContributionController extends Controller
 {
@@ -22,7 +23,8 @@ class ContributionController extends Controller
      */
     public function addContribution()
     {
-        return view('page.contribution.add');
+        $navType = 5;
+        return view('page.contribution.add',compact('navType'));
     }
 
     /**
@@ -55,7 +57,5 @@ class ContributionController extends Controller
         $content = file_get_contents($images_url);
         file_put_contents('../storage/app/public/mimage/$filename', $content);
         $book->save();
-
-        return redirect()->route('book',['$book']);
     }
 }
