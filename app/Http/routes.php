@@ -11,8 +11,8 @@
 //Auth::login(User::find(1));
 
 
-//Route::group(['middleware' => ['web','auth']], function () {
-Route::group(['middleware' => 'web'], function () {
+Route::group(['middleware' => ['web','auth']], function () {
+//Route::group(['middleware' => 'web'], function () {
     //books routes
     Route::get('/', ['as' => 'home', 'uses' => 'BooksController@getBooks']);
     Route::get('books', ['as' => 'books', 'uses' => 'BooksController@getPrintedBooks']);
@@ -42,3 +42,6 @@ Route::group(['middleware' => 'web'], function () {
     });
 });
 
+Route::group(['middleware' => 'web'], function() {
+    Route::auth();
+});

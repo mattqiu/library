@@ -7,12 +7,12 @@
             <div class="row">
                 <div class="dropdown accountBar" style="float:right;">
                     <a class="dropdown-toggle" href="#" id="account-email" data-toggle="dropdown" aria-expanded="false">
-                        Allen<span class="caret"></span>
+                        {{ $frontend->user->nick_name }}<span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/settings/account">我的账号</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/my/settings">我的账号</a></li>
                         <li role="presentation" class="divider"></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/auth/logout">退出</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="/logout">退出</a></li>
                     </ul>
                 </div>
             </div>
