@@ -10,6 +10,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
 class ContributionController extends Controller
 {
@@ -20,7 +21,8 @@ class ContributionController extends Controller
      */
     public function addContribution()
     {
-        return view('page.contribution.add');
+        $navType = 5;
+        return view('page.contribution.add',compact('navType'));
     }
 
     /**
@@ -31,6 +33,7 @@ class ContributionController extends Controller
 
     public function postContribution(Request $request)
     {
+
         $this->validate($request, [
         'title' => 'required|unique:posts|max:255',
         ]);

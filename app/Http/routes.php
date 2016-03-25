@@ -33,7 +33,7 @@ Route::group(['middleware' => 'web'], function () {
 
 //test routes
     Route::get('/test', function () {
-        return view('layouts.app');
+        return view('layouts.main');
     });
 
     Route::get('/browse', function () {
