@@ -19,6 +19,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('ebooks', ['as' => 'ebooks', 'uses' => 'BooksController@getEBooks']);
     Route::get('book/{id}', ['as' => 'book.info', 'uses' => 'BooksController@getBook']);
     Route::get('book/contributions/{id}', ['as'=>'contributions.info', 'uses' =>'BooksController@getContributions']);
+    Route::get('search', ['as' => 'search', 'uses' => 'BooksController@getBooksFromSearch']);
 
 //users routes
     Route::get('my/settings', ['as' => 'settings', 'uses' => 'UserController@getSettings']);

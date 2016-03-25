@@ -8,8 +8,11 @@
  */
 
 namespace App\Http\Controllers;
+
 use App;
 use App\Book;
+use Illuminate\Http\Request;
+
 class BooksController extends Controller
 {
     protected $table = 'books';
@@ -58,6 +61,7 @@ class BooksController extends Controller
     }
         return view('page.browse.books',compact('books'));
     }
+
     /**
      * find a book by id.
      *
@@ -70,6 +74,29 @@ class BooksController extends Controller
         $book = Book::findOrFail($id);
 
         return view('page.book.info',compact('book'));
+    }
+
+    /**
+     * Show books with searching.
+     *
+     * @param Request $request id of the book
+     * @return \Response
+     */
+    public function getBooksFromSearch(Request $request)
+    {
+        $term = $request->input('term');
+        $books_builder = Book::Where('book_name', 'LIKE', '%'.$term.'%')
+            ->orWhere('isbn', 'LIKE', '%'.$term.'%')
+            ->orWhere('author', 'LIKE', '%'.$term.'%')
+            ->orWhere('publisher', 'LIKE', '%'.$term.'%')
+            ->orderBy('created_at', 'desc')
+            ->orderBy('book_name', 'asc');
+
+        $books = $books_builder->paginate(18);
+        $booksCount = $books_builder->count();
+        $navType = 0;
+        $pageTitle = '微博图书馆-搜索';
+        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
     /**
