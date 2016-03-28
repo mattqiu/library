@@ -41,31 +41,44 @@ class ContributionController extends Controller
         $url = "https://api.douban.com/v2/book/isbn/$isbn";
         $data = json_decode(@file_get_contents($url), true);
         //处理publish_date 格式
+        if(empty($data) ){
+            return;
+        }else{
+            $isbn = Book::lists('isbn');
+            if(in_array($data['isbn13'], $isbn)){
+                $book = Book::whereIn($isbn, $data['isbn13'])->get();
+                if($book['has_type'] == $request->input('has_type')){
+                    return redirect()->route('book',['id'=>$book['id']]);
+                }else{
+                    $book['has_type'] = 2;
+                    return redirect()->route('book',['id'=>$book['id']]);
+                }
+            }else{
+                $publish = explode('-',$data['pubdate']);
+                $d = mktime('0','0','0',$publish['1'],'1',$publish['0']);
 
-        $publish = explode('-',$data['pubdate']);
-        $d = mktime('0','0','0',$publish['1'],'1',$publish['0']);
+                $book['has_type'] = $request->input('has_type');
+                $book['book_name'] = $data['title'];
+                $book['isbn'] = $data['isbn13'];
+                $book['author'] = $data['author']['0'];
+                $book['publisher'] = $data['publisher'];
+                $book['publish_date'] =  date("Y-m-d h:i:sa", $d);
+                $book['douban_rating'] = $data['rating']['average'];
+                $book['introduction'] = $data['summary'];
+                $book['catalog'] = str_replace("\n", "</br>", $data['catalog']);
 
-        $book['has_type'] = $request->input('has_type');
-        $book['book_name'] = $data['title'];
-        $book['isbn'] = $data['isbn13'];
-        $book['author'] = $data['author']['0'];
-        $book['publisher'] = $data['publisher'];
-        $book['publish_date'] =  date("Y-m-d h:i:sa", $d);
-        $book['douban_rating'] = $data['rating']['average'];
-        $book['introduction'] = $data['summary'];
-        $book['catalog'] = str_replace("\n", "</br>", $data['catalog']);
 
-        //存储书的图片
-        $images_url = $data['images']['medium'];
-        $images__large_url = $data['images']['large'];
-        $filename = $isbn.".jpg";
-        $book['image'] = $filename;
-        $content = file_get_contents($images_url);
-        file_put_contents('../public/img/mimage/'.$filename, $content);
-        $content = file_get_contents($images__large_url);
-        file_put_contents('../public/img/limage/'.$filename, $content);
-        $newbook = Book::create($book);
+                //存储书的图片
+                $images_url = $data['images']['medium'];
+                $images__large_url = $data['images']['large'];
+                $filename = $isbn.".jpg";
+                $book['image'] = $filename;
+                $content = file_get_contents($images_url);
+                file_put_contents('../public/img/mimage/'.$filename, $content);
+                $content = file_get_contents($images__large_url);
+                file_put_contents('../public/img/limage/'.$filename, $content);
+                $newbook = Book::create($book);
 
-        return redirect()->route('book.info',$newbook->id);
+                return redirect()->route('book.info',$newbook->id);
     }
 }
