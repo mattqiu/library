@@ -63,6 +63,6 @@ class ContributionController extends Controller
         file_put_contents('../storage/app/public/mimage/'.$filename, $content);
         $newbook=Book::create($book);
 
-        return redirect()->route('book/{id}','$newbook['id']');
+        return redirect()->route('book/{id}',$newbook->id);
     }
 }

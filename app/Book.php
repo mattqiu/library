@@ -26,7 +26,6 @@ class Book extends Model
         'catalog',
         'image',
     ];
-     protected  $table='books';
 /**
  * Query users shared books.
  *

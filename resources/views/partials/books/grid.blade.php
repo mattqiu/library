@@ -2,7 +2,7 @@
     <div>
         <p class="help">共有 {{ $books->count() }} 本书</p>
     </div>
-    <div class="row books-container">
+    <div class="row">
         @if($books->count())
             @foreach($books as $index => $book)
                 @include('partials.books.card', [ 'book' => $book ])

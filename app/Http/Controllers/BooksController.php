@@ -24,7 +24,7 @@ class BooksController extends Controller
      */
     public function getBooks()
     {
-        $books = Book::paginate(20);
+        $books = Book::paginate(18);
         $booksCount = Book::count();
         $navType = 1;
         $pageTitle = '微博图书馆-首页';
@@ -38,14 +38,12 @@ class BooksController extends Controller
      */
     public function getPrintedBooks()
     {
-<<<<<<< HEAD
+
         $has_type=Book::lists('has_type');
 
         if($has_type == '0'){
              $books = Book::find('$has_type')->paginate(20);
         }
-
-
 
         $booksCount = 0;
         $navType = 2;
