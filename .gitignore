@@ -1,5 +1,5 @@
 /vendor
-/123/public/img/mimage/*
+/public/img/mimage/*
 /node_modules
 /public/storage
 Homestead.yaml
