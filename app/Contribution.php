@@ -13,9 +13,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contribution extends Model
 {
-    protected $table = 'contribution';
+    protected $table = 'contributions';
     protected $fillable = [
-        'id',
         'user_id',
         'book_id',
         'type',

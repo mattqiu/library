@@ -1,5 +1,20 @@
+<style>
+    .accountBar{
+        float: right;
+        margin-top: 5px;
+    }
+
+    .search{
+        padding-top: 10px;
+        padding-right: 0px;
+    }
+    .header{
+        margin-top: 10px;
+        margin-bottom: 12px;
+    }
+</style>
 <div class="container">
-    <div class="row">
+    <div class="row header">
         <div class="col-md-4 col-sm-4 col-xs-4">
             <a href="/"><img src="{{ asset('img/logo.png') }}" alt="首页" class="logo"/></a>
         </div>
