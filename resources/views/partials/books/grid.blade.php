@@ -6,7 +6,7 @@
             margin-bottom: 5px;
         }
         .indexBookItem{
-            height: 230px;
+            height: 250px;
         }
     </style>
     <div>
