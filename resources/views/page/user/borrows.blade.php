@@ -14,7 +14,7 @@
         </div>
         <div class="col-md-10 col-sm-10">
             <div class="row">
-                <span class="empty_notice">你暂时还没有共享的图书哦，快去和大家<a href="/contribution/add">共享</a>一本图书吧！</span>
+                <span class="empty_notice">我的借阅，内容没写</span>
             </div>
         </div>
     </div>

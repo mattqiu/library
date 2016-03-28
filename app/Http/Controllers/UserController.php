@@ -11,14 +11,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\User;
 use Auth;
+use Validator;
 use Illuminate\Database\Eloquent\Model;
 
 class UserController extends Controller
 {
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|max:255|min:5',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'sex' => 'required',
+        ]);
+    }
 
     /*
      * Show the user's setting page.
@@ -27,9 +44,8 @@ class UserController extends Controller
      */
     public function getSettings()
     {
-        $user = Auth::user();
         $navType = 4;
-        return view('page.user.settings',compact('navType', 'user'));
+        return view('page.user.settings',compact('navType'));
     }
 
     /**
@@ -39,24 +55,17 @@ class UserController extends Controller
      */
     public function postSettings(Request $request)
     {
-        //$user = Auth::user();
-        $rules = [
-            'kindle_email' => 'email',
-            'phone_number' => 'integer',
-            'nick_name' => 'required|max:255',
-        ];
-        $this->validate($request, $rules);
-        if ($validator->fails()) {
-            return redirect('post/getSettings')
-                        ->withErrors($validator)
-                        ->withInput();
-        }else{
-            $user->fill($request->all());
-            $user->save();
-
-            return redirect()->route('my/settings');
-        }
-
+        $data = $request->all();
+        $validator = $this->validator($data);
+        $this->validateWith($validator,$request);
+        $user = Auth::user();
+        $user->nick_name = $data['name'];
+        $user->phone_number = $data['phone_number'];
+        $user->address = $data['address'];
+        $user->sex = $data['sex'];
+        $user->kindle_email = $data['kindle_email'];
+        $user->save();
+        return redirect()->route('settings');
     }
 
     /**

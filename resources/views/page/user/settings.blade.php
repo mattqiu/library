@@ -15,14 +15,14 @@
         <div class="col-md-10 col-sm-10">
             <div class="row">
                 <div class="col-md-7 col-sm-8">
-                    <form method="post">
+                    <form method="post" action="{{ route('postSettings') }}">
                         <div class="form-group">
                             <label for="email">邮箱</label>
-                            <input type="email" name="email" disabled value="" class="form-control" id="email">
+                            <input type="email" name="email" disabled value="{{ $frontend->user->email }}" class="form-control" id="email">
                         </div>
                         <div class="form-group">
                             <label for="name">姓名</label>
-                            <input type="text" name="name" value="" class="form-control" id="name">
+                            <input type="text" name="name" value="{{ $frontend->user->nick_name }}" class="form-control" id="name">
                         </div>
                         <div class="form-group">
                             <div>
@@ -30,24 +30,24 @@
                             </div>
                             <div>
                                 <label class="radio-inline">
-                                    <input type="radio" checked name="sex" value="m">男
+                                    <input type="radio" {!! $frontend->user->sex == 'm' ? 'checked' : '' !!} name="sex" value="m">男
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="sex" value="f">女
+                                    <input type="radio" {!! $frontend->user->sex == 'f' ? 'checked' : '' !!} name="sex" value="f">女
                                 </label>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="phone_number">电话号码</label>
-                            <input type="text" name="phone_number" value="" class="form-control" id="phone_number">
+                            <input type="text" name="phone_number" value="{{ $frontend->user->phone_number }}" class="form-control" id="phone_number">
                         </div>
                         <div class="form-group">
                             <label for="address">工位信息</label>
-                            <input type="text" name="address" value="" class="form-control" id="address">
+                            <input type="text" name="address" value="{{ $frontend->user->address }}" class="form-control" id="address">
                         </div>
                         <div class="form-group">
                             <label for="kindle_email">Kindle 邮箱</label>
-                            <input type="email" name="kindle_email" value="" class="form-control" id="kindle_email">
+                            <input type="email" name="kindle_email" value="{{ $frontend->user->kindle_email }}" class="form-control" id="kindle_email">
                         </div>
                         <div class="help">
                         <ul>
@@ -56,7 +56,7 @@
                             <li>只能推送 mobi 格式的电子书</li>
                         </ul>
                         </div>
-                        <input type="hidden" name="_token" value="pKpJaRXMqHqeZoEeKxECBTHbKbqitnWxuPSg6x3P">
+                        {!! csrf_field() !!}
                         <button type="submit" class="btn btn-default">保存</button>
                     </form>
                 </div>
