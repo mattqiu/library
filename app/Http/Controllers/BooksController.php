@@ -38,15 +38,8 @@ class BooksController extends Controller
      */
     public function getPrintedBooks()
     {
-<<<<<<< HEAD
-        $has_type=Book::lists('has_type');
-
-        if($has_type == '0'){
-             $books = Book::find('$has_type')->paginate(20);
-        }
-
-
-
+        $Pbooks = Book::whereIn('has_type',[0,2])->get();
+        $books = $Pbooks->paginate(20);
         $booksCount = 0;
         $navType = 2;
         $pageTitle = '微博图书馆-首页';
@@ -62,15 +55,8 @@ class BooksController extends Controller
      */
     public function getEBooks()
     {
-//        $has_type=Book::lists('has_type');
-//        foreach($has_type as $value)
-//        {
-//            if($value == "2" )
-//            {
-//                $books = Book::whereIn('has_type',[$value])->get();
-//            }
-//        }
-        $books = Book::paginate(20);
+        $Ebooks = Book::whereIn('has_type',[1,2])->get();
+        $books = $Ebooks->paginate(20);
         $booksCount = 0;
         $navType = 3;
         $pageTitle = '微博图书馆-首页';
