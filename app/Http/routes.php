@@ -40,6 +40,7 @@ Route::group(['middleware' => ['web','auth']], function () {
     Route::get('/browse', function () {
         return view('page.browse.books');
     });
+   // Route::group(['middleware' => ['web','auth']], function () {
 });
 
 Route::group(['middleware' => 'web'], function() {

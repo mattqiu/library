@@ -45,17 +45,18 @@ class UserController extends Controller
             'phone_number' => 'integer',
             'nick_name' => 'required|min:5',
         ];
+        $this->validate($request, $rules);
         if ($validator->fails()) {
             return redirect('post/getSettings')
                         ->withErrors($validator)
                         ->withInput();
+        }else{
+            $user->fill($request->all());
+            $user->save();
+
+            return redirect()->route('my/settings');
         }
-        $this->validate($request, $rules);
-        $user->fill($request->all());
-        $user->save();
 
-
-        return redirect()->route('my/settings');
     }
 
     /**
