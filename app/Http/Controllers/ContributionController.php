@@ -11,10 +11,11 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
-
+use App\Book;
 
 class ContributionController extends Controller
 {
+
     /**
      * Show add contributins page.
      *
@@ -33,28 +34,35 @@ class ContributionController extends Controller
      */
     public function postContribution(Request $request)
     {
-        $book = new Book;
-        //$isbn = $request->input('isbn');
-        $isbn = 7550241511;
-        $book->has_type = 0;
+        $book = array();
+        $isbn = $request->input('isbn');
+       // $isbn = 7550241511;
+       // $book['has_type'] = 0;
         $url = "https://api.douban.com/v2/book/isbn/$isbn";
-        $data = (array)json_decode(file_get_contents($url), true);
-        $book->id = $data['id'];
-        //$book->has_type = $request->input('has_type');
-        $book->book_name = $data['title'];
-        $book->isbn = $data['isbn13'];
-        $book->author = $data['author'];
-        $book->publisher = $data['publisher'];
-        $book->publish_date = $data['pubdate'];
-        $book->douban_rating = $data['rating'];
-        $book->introduction = $data['summary'];
-        $book->catalog = $data['catalog'];
+        $data = json_decode(file_get_contents($url), true);
+        //处理publish_date 格式
 
-        //获取书的图片
+        $publish = explode('-',$data['pubdate']);
+        $d = mktime('0','0','0',$publish['1'],'1',$publish['0']);
+
+        $book['has_type'] = $request->input('has_type');
+        $book['book_name'] = $data['title'];
+        $book['isbn'] = $data['isbn13'];
+        $book['author'] = $data['author']['0'];
+        $book['publisher'] = $data['publisher'];
+        $book['publish_date'] =  date("Y-m-d h:i:sa", $d);
+        $book['douban_rating'] = $data['rating']['average'];
+        $book['introduction'] = $data['summary'];
+        $book['catalog'] = $data['catalog'];
+
+        //存储书的图片
         $images_url = $data['images']['medium'];
-        $filename = date("Ymdhis").".jpg";
+        $filename = $isbn.".jpg";
+        $book['image'] = $filename;
         $content = file_get_contents($images_url);
-        file_put_contents('../storage/app/public/mimage/$filename', $content);
-        $book->save();
+        file_put_contents('../storage/app/public/mimage/'.$filename, $content);
+        $newbook=Book::create($book);
+
+        return redirect()->route('book/{id}','$newbook['id']');
     }
 }
