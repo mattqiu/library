@@ -20,11 +20,6 @@ use Illuminate\Database\Eloquent\Model;
 class UserController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /*
      * Show the user's setting page.
      *
@@ -32,7 +27,9 @@ class UserController extends Controller
      */
     public function getSettings()
     {
-        return view('page.user.settings');
+        $user = Auth::user();
+        $navType = 4;
+        return view('page.user.settings',compact('navType', 'user'));
     }
 
     /**

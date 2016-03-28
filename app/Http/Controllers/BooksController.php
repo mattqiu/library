@@ -22,12 +22,13 @@ class BooksController extends Controller
      *
      * @return \Response
      */
-
     public function getBooks()
     {
         $books = Book::paginate(20);
-
-        return view('page.browse.books',compact('books'));
+        $booksCount = Book::count();
+        $navType = 1;
+        $pageTitle = '微博图书馆-首页';
+        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
     /**
@@ -37,6 +38,7 @@ class BooksController extends Controller
      */
     public function getPrintedBooks()
     {
+<<<<<<< HEAD
         $has_type=Book::lists('has_type');
 
         if($has_type == '0'){
@@ -45,7 +47,11 @@ class BooksController extends Controller
 
 
 
-        return view('page.browse.books',compact('books'));
+        $booksCount = 0;
+        $navType = 2;
+        $pageTitle = '微博图书馆-首页';
+        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
+
     }
 
 
@@ -56,15 +62,19 @@ class BooksController extends Controller
      */
     public function getEBooks()
     {
-        $has_type=Book::lists('has_type');
-        foreach($has_type as $value)
-        {
-            if($value == "2" )
-            {
-                $books = Book::whereIn('has_type',[$value])->get();
-        }
-    }
-        return view('page.browse.books',compact('books'));
+//        $has_type=Book::lists('has_type');
+//        foreach($has_type as $value)
+//        {
+//            if($value == "2" )
+//            {
+//                $books = Book::whereIn('has_type',[$value])->get();
+//            }
+//        }
+        $books = Book::paginate(20);
+        $booksCount = 0;
+        $navType = 3;
+        $pageTitle = '微博图书馆-首页';
+        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
     /**
