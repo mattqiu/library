@@ -13,6 +13,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contribution extends Model
 {
+    protected $table = 'contributions';
+    protected $fillable = [
+        'user_id',
+        'book_id',
+        'type',
+        'remark',
+        'status',
+        'borrow_sum',
+    ];
 /**
  * Query the contribution user.
  *
