@@ -38,11 +38,12 @@ class BooksController extends Controller
     public function getPrintedBooks()
     {
         $has_type=Book::lists('has_type');
-        foreach($has_type as $value){
-            if($value == "1" or $value == "3"){
-                $books = Book::whereIn('has_type',[$value])->get();
-            }
+
+        if($has_type == '0'){
+             $books = Book::find('$has_type')->paginate(20);
         }
+
+
 
         return view('page.browse.books',compact('books'));
     }

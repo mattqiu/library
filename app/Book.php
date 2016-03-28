@@ -13,6 +13,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
+    protected $table = 'books';
+    protected $fillable = [
+        'has_type',
+        'book_name',
+        'isbn',
+        'author',
+        'publisher',
+        'publish_date',
+        'douban_rating',
+        'introduction',
+        'catalog',
+        'image',
+    ];
      protected  $table='books';
 /**
  * Query users shared books.
