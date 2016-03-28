@@ -40,7 +40,6 @@ class BooksController extends Controller
     {
 
         $has_type=Book::lists('has_type');
-
         if($has_type == '0'){
              $books = Book::find('$has_type')->paginate(20);
         }
