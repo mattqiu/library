@@ -24,7 +24,7 @@ class BooksController extends Controller
      */
     public function getBooks()
     {
-        $books = Book::paginate(20);
+        $books = Book::paginate(18);
         $booksCount = Book::count();
         $navType = 1;
         $pageTitle = '微博图书馆-首页';
@@ -40,6 +40,7 @@ class BooksController extends Controller
     {
         $Pbooks = Book::whereIn('has_type',[0,2])->get();
         $books = $Pbooks->paginate(20);
+
         $booksCount = 0;
         $navType = 2;
         $pageTitle = '微博图书馆-首页';
@@ -71,10 +72,10 @@ class BooksController extends Controller
      */
     public function getBook($id)
     {
-
         $book = Book::findOrFail($id);
-
-        return view('page.book.info',compact('book'));
+        $navType = 0;
+        $pageTitle = '微博图书馆-'.$book->book_name;
+        return view('page.book.info',compact('book', 'navType', 'pageTitle'));
     }
 
     /**
