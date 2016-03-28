@@ -28,6 +28,7 @@ class BooksController extends Controller
         $booksCount = Book::count();
         $navType = 1;
         $pageTitle = '微博图书馆-首页';
+
         return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
@@ -38,14 +39,13 @@ class BooksController extends Controller
      */
     public function getPrintedBooks()
     {
-
         $books_builder = Book::whereIn('has_type',[0,2]);
         $booksCount = $books_builder->count();
         $books = $books_builder->paginate(18);
         $navType = 2;
         $pageTitle = '微博图书馆-实体书';
-        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
 
+        return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
 
@@ -61,6 +61,7 @@ class BooksController extends Controller
         $books = $books_builder->paginate(18);
         $navType = 3;
         $pageTitle = '微博图书馆-电子书';
+
         return view('page.browse.books',compact('books', 'navType', 'pageTitle', 'booksCount'));
     }
 
@@ -72,10 +73,29 @@ class BooksController extends Controller
      */
     public function getBook($id)
     {
-        $book = Book::findOrFail($id);
-        $navType = 0;
-        $pageTitle = '微博图书馆-'.$book->book_name;
-        return view('page.book.info',compact('book', 'navType', 'pageTitle'));
+        $book = Book::find($id);
+        $pbooks_count = 0;
+        $ebooks_count = 0;
+        if($book->contributions->count()) {
+            foreach($book->contributions as $key => $contribution) {
+                if($contribution->has_type == 0) {
+                    $pbooks_count++;
+                } else {
+                    $ebooks_count++;
+                }
+            }
+        };
+        $book['pbooks_count'] = $pbooks_count;
+        $book['ebooks_count'] = $ebooks_count;
+
+        if($book) {
+            $navType = 0;
+            $pageTitle = '微博图书馆-'.$book->book_name;
+
+            return view('page.book.info',compact('book', 'navType', 'pageTitle'));
+        }
+
+        return view('errors.404');
     }
 
     /**
@@ -109,7 +129,6 @@ class BooksController extends Controller
      */
     public function getContributions($id)
     {
-
         $contributions=Book::findOrFail($id)->contributions;
 
         return view('page.user.contributions',compact('contributions'));

@@ -69,8 +69,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $contributions = $user->contributions;
-
-        return view('page.user.contributions',compact('contributions'));
+        $navType = 4;
+        return view('page.user.contributions',compact('navType', 'contributions'));
     }
 
 
@@ -97,8 +97,8 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $borrows = $user->borrows;
-
-        return view('page.user.borrows', compact('borrows') );
+        $navType = 4;
+        return view('page.user.borrows', compact('navType', 'borrows') );
 
     }
 
