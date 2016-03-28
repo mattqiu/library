@@ -39,7 +39,7 @@ class ContributionController extends Controller
        // $isbn = 7550241511;
        // $book['has_type'] = 0;
         $url = "https://api.douban.com/v2/book/isbn/$isbn";
-        $data = json_decode(file_get_contents($url), true);
+        $data = json_decode(@file_get_contents($url), true);
         //处理publish_date 格式
 
         $publish = explode('-',$data['pubdate']);
@@ -53,16 +53,19 @@ class ContributionController extends Controller
         $book['publish_date'] =  date("Y-m-d h:i:sa", $d);
         $book['douban_rating'] = $data['rating']['average'];
         $book['introduction'] = $data['summary'];
-        $book['catalog'] = $data['catalog'];
+        $book['catalog'] = str_replace("\n", "</br>", $data['catalog']);
 
         //存储书的图片
         $images_url = $data['images']['medium'];
+        $images__large_url = $data['images']['large'];
         $filename = $isbn.".jpg";
         $book['image'] = $filename;
         $content = file_get_contents($images_url);
-        file_put_contents('../storage/app/public/mimage/'.$filename, $content);
-        $newbook=Book::create($book);
+        file_put_contents('../public/img/mimage/'.$filename, $content);
+        $content = file_get_contents($images__large_url);
+        file_put_contents('../public/img/limage/'.$filename, $content);
+        $newbook = Book::create($book);
 
-        return redirect()->route('book/{id}',$newbook->id);
+        return redirect()->route('book.info',$newbook->id);
     }
 }

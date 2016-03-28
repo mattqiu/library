@@ -4,11 +4,25 @@
 
 @section('content')
     <div class="container">
+        <style>
+            .bookCover{
+                height: 234px;
+                border: 1px solid #eee;
+            }
+            .bookInfo .cell2{
+                padding-left: 8px;
+                color:#666;
+            }
+            .bookInfo .cell1{
+                color:#777;
+                width: 75px;
+            }
+        </style>
         <div class="row break">
             <div class="col-md-9 col-sm-9 col-xs-12">
                 <div class="row">
                     <div class="col-md-4 col-sm-4 col-xs-5">
-                        <img src="../storage/cover/{{ $book->image }}" alt="{{ $book->book_name }}" class="detaillBookCover"/>
+                        <img src="/img/limage/{{ $book->image }}" alt="{{ $book->book_name }}" class="bookCover"/>
                     </div>
                     <div class="col-md-8 col-sm-8 col-xs-7">
                         <h2>{{ $book->book_name }}</h2>
@@ -47,7 +61,7 @@
                         <h3>简介</h3>
                             {{ $book->introduction }}
                         <h3>目录</h3>
-                            {{ $book->content }}
+                            {!! $book->catalog !!}
                     </div>
                 </div>
             </div>

@@ -83,10 +83,10 @@ class BooksController extends Controller
      */
     public function getBook($id)
     {
-
         $book = Book::findOrFail($id);
-
-        return view('page.book.info',compact('book'));
+        $navType = 0;
+        $pageTitle = '微博图书馆-'.$book->book_name;
+        return view('page.book.info',compact('book', 'navType', 'pageTitle'));
     }
 
     /**
