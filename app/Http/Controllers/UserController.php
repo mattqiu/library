@@ -43,7 +43,7 @@ class UserController extends Controller
         $rules = [
             'kindle_email' => 'email',
             'phone_number' => 'integer',
-            'nick_name' => 'required|min:5',
+            'nick_name' => 'required|max:255',
         ];
         $this->validate($request, $rules);
         if ($validator->fails()) {

@@ -40,23 +40,33 @@ class ContributionController extends Controller
        // $book['has_type'] = 0;
         $url = "https://api.douban.com/v2/book/isbn/$isbn";
         $data = json_decode(@file_get_contents($url), true);
+        $contribution = array();
+        $contribution['user_id'] = Auth::user()->id;
+        $contribution['remark'] = $request->input('describe');
+        $contribution['status'] = 0;
+        $contribution['borrow_sum'] = 0;
         //处理publish_date 格式
         if(empty($data) ){
-            return
+            return ;
         }else{
-            $isbn=Book::lists('isbn');
-            if(in_array('$data['isbn13']', $isbn))){
-                $book = Book::whereIn('isbn','$data['isbn13']')->get();
-                if($book['has_type'] == $request->input('has_type')){
-                    return redirect()->route('book','id'=>'$book['id']');
-                }else{
-                    $book['has_type'] = 2;
-                    return redirect()->route('book','id'=>'$book['id']');
-                }
+                $book = Book::where('isbn','=',$data['isbn13']);
+                //dd($book_builer);
+               // $book_builer->first();
+                if(!empt($book)){
+                    $contribution['type'] = $book['has_type'];
+                    $contribution['book_id'] = $book['id'];
+                    $newcontribution = Contribution::create($contribution);
+
+                    if($book['has_type'] == $request->input('has_type')){
+                        return redirect()->route('book','id'=>'$book['id']');
+                    }else{
+                        $book['has_type'] = 2;
+                        $book->save();
+                        return redirect()->route('book','id'=>'$book['id']');
+                    }
             }else{
                 $publish = explode('-',$data['pubdate']);
                 $d = mktime('0','0','0',$publish['1'],'1',$publish['0']);
-
                 $book['has_type'] = $request->input('has_type');
                 $book['book_name'] = $data['title'];
                 $book['isbn'] = $data['isbn13'];
@@ -79,6 +89,10 @@ class ContributionController extends Controller
                 file_put_contents('../public/img/limage/'.$filename, $content);
                 $newbook = Book::create($book);
 
-                return redirect()->route('book.info',$newbook->id);
+                $contribution['type'] = $request->input('has_type');
+                $contribution['book_id'] = $newbook['id'];
+                $newcontribution = Contribution::create($contribution);
+
+                return redirect()->route('book',$newbook->id);
     }
 }
