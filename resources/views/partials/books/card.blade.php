@@ -1,4 +1,4 @@
-<div class="indexBookItem col-md-2 col-sm-3 col-xs-4" style="height: 230px;">
+<div class="indexBookItem col-md-2 col-sm-3 col-xs-4">
     <div class="my_book_cover">
         <a href="{{ route('book.info', [ $book->id ]) }}">
             <img src="img/mimage/{{ $book->image }}" class="cover_img"/>

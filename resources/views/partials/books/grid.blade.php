@@ -1,4 +1,14 @@
 <div class="container">
+    <style>
+        .my_book_cover{
+            height: 160px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        .indexBookItem{
+            height: 230px;
+        }
+    </style>
     <div>
         <p class="help">共有 {{ $books->count() }} 本书</p>
     </div>
