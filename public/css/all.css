@@ -16,6 +16,7 @@
     margin-bottom: 10px;
     padding: 10px;
 }
+
 .sideBar li a:hover{
     text-decoration: none;
 }
@@ -29,4 +30,8 @@
     text-align: center;
     margin-top: 60px;
     display: block;
+}
+
+.required{
+    color:red;
 }
