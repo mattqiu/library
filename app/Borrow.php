@@ -14,6 +14,11 @@ use Illuminate\Database\Eloquent\Model;
 class Borrow extends Model
 {
   protected $table='borrows';
+  protected $fillable = [
+        'user_id',
+        'contribution_id',
+        'book_id',
+    ];
    /**
      * Query the user that has borrow the books.
      *

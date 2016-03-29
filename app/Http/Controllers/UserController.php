@@ -96,7 +96,22 @@ class UserController extends Controller
 
         return redirect()->route('my/contributions');
     }
+    /**
+     * Handle a new borrow.
+     *
+     * @return \Response
+     */
+    public function borrow()
+    {
+        $borrow = array();
+        $users = Auth::user();
+        $borrow['user_id'] = $users->id;
+        $borrow['contribution_id'] = $users->contributions->id;
+        $borrow['book_id'] = $users->books->id;
+        $newborrow = Borrow::create($borrow);
+        return view('', compact('newborrow') );
 
+    }
     /**
      * Show the user's borrows  page.
      *
