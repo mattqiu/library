@@ -38,8 +38,6 @@ class ContributionController extends Controller
     {
         $Cbook = array();
         $isbn = $request->input('isbn');
-       // $isbn = 7550241511;
-       // $book['has_type'] = 0;
         $url = "https://api.douban.com/v2/book/isbn/$isbn";
         $data = json_decode(@file_get_contents($url), true);
         if(empty($data) ){
@@ -50,22 +48,21 @@ class ContributionController extends Controller
             $contribution['remark'] = $request->input('describe');
             $contribution['status'] = 0;
             $contribution['borrow_sum'] = 0;
+            $contribution['type'] = $request->input('book_type');
 
             $book = Book::where('isbn','=',$data['isbn13'])->first();
-            //dd($book);
-           // $book_builer->first();
             if(!empty($book)){
-                $contribution['type'] = $book['has_type'];
                 $contribution['book_id'] = $book['id'];
-                $newcontribution = Contribution::create($contribution);
-
-                if($book['has_type'] == $request->input('has_type')){
+                if($book['has_type'] == $request->input('book_type')){
+                    $newcontribution = Contribution::create($contribution);
                     return redirect()->route('book.info',['id'=>$book['id']]);
                 }else{
                     $book['has_type'] = 2;
                     $book->save();
+                    $newcontribution = Contribution::create($contribution);
                     return redirect()->route('book.info',['id'=>$book['id']]);
                 }
+
 
             }else{
                 //处理publish_date 格式
