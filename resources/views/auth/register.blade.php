@@ -28,7 +28,7 @@
                             <label class="col-md-4 control-label">Sex</label>
 
                             <div class="col-md-6">
-                                <input type="radio" class="radio-inline" name="sex" value="n">Male
+                                <input type="radio" class="radio-inline" name="sex" value="m">Male
                                 <input type="radio" class="radio-inline" name="sex" value="f">Female
                                 @if ($errors->has('sex'))
                                     <span class="help-block">

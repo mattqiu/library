@@ -16,5 +16,4 @@ class ApplicationsController extends Controller
 {
     protected $table = 'borrows';
 
-
 }

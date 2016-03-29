@@ -50,7 +50,7 @@
                         </table>
                         <br/>
                         <p>
-                            <b>{{ $book->contributions_count }}</b> 本实体书可借阅，<b>{{ $book->ebooks_count }}</b> 本电子书可下载
+                            <b>{{ $book->pbooks_count }}</b> 本实体书可借阅，<b>{{ $book->ebooks_count }}</b> 本电子书可下载
                         </p>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stockList">借阅</button>
                         <button type="button" id="downloadEbookButton" class="btn btn-default">下载电子书</button>
